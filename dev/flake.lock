@@ -38,6 +38,18 @@
         "type": "github"
       }
     },
+    "lima-flake": {
+      "locked": {
+        "lastModified": 0,
+        "narHash": "sha256-IxJWeQ+iLugodsCU/704rrcTBNyVHlnbV1W5zxdjqLM=",
+        "path": "..",
+        "type": "path"
+      },
+      "original": {
+        "path": "..",
+        "type": "path"
+      }
+    },
     "nixlib": {
       "locked": {
         "lastModified": 1736643958,
@@ -129,6 +141,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "lima-flake": "lima-flake",
         "nixos-lima": "nixos-lima",
         "nixpkgs": "nixpkgs_2",
         "systems": "systems_2",

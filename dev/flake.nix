@@ -14,7 +14,7 @@
       url = "github:nixos-lima/nixos-lima";
       inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
-    lima-flake.url = "git+path:..";
+    lima-flake.url = "path:..";
   };
 
   outputs =
