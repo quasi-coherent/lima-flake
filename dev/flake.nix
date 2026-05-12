@@ -14,7 +14,7 @@
       url = "github:nixos-lima/nixos-lima";
       inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
-    # lima-flake.url = "git+path:..";
+    lima-flake.url = "git+path:..";
   };
 
   outputs =
@@ -22,7 +22,7 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
       imports = [
-        # inputs.lima-flake.flakeModules.lima
+        inputs.lima-flake.flakeModules.lima
         ./devshell.nix
         ./treefmt.nix
         ./example.nix
