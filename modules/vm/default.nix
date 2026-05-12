@@ -82,9 +82,50 @@
     };
 
     bootstrap = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.submodule (import ./bootstrap.nix));
-      default = { };
-      description = "Named bootstrap scripts. The attribute name is the unit/identifier.";
+      type = lib.types.listOf (
+        lib.types.submodule {
+          options = {
+            script = lib.mkOption {
+              type = lib.types.lines;
+              description = "Shell script body to run.";
+            };
+            runOnce = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = "Do not run this script more than once.";
+            };
+          };
+          description = "Scripts to run in sequence as a systemd oneshot unit.";
+        }
+      );
+    };
+
+    provision = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            script = lib.mkOption {
+              type = lib.types.lines;
+              description = "Shell script body to run.";
+            };
+            runOnce = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = "Do not run this script more than once.";
+            };
+            provisionMode = lib.mkOption {
+              type = lib.types.enum [
+                "system"
+                "user"
+                "boot"
+                "dependency"
+              ];
+              default = "system";
+              description = "Lima provision mode.";
+            };
+          };
+        }
+      );
     };
 
     configExtra = lib.mkOption {

@@ -4,7 +4,7 @@
   templates =
     let
       minimal = {
-        path = ../templates/minimal;
+        path = ./templates/minimal;
         description = "Minimal lima-flake consumer example.";
       };
     in

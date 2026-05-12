@@ -47,14 +47,7 @@ lima.vms = {
 
     mounts = [ { location = "~"; writable = true; } ];
     portForwards = [ { guestPort = 80; hostPort = 8080; } ];
-
-    bootstrap.motd.script = ''echo "helloooooooooo" > /etc/motd'';
-
-    nixos.modules = [
-      ({ pkgs, ... }: {
-        environment.systemPackages = [ pkgs.htop ];
-      })
-    ];
+    ...
   };
   ...
 };
@@ -64,14 +57,13 @@ the flake exposes:
 
 - `packages.<system>.<name>` — a `limactl` wrapper preconfigured with the
   generated `nixos.yaml` to start/stop/interact with that VM.
-- `packages.<system>.<name>-yaml` — the generated `nixos.yaml` itself, in case
-  that's useful for anyone.
 - `nixosConfigurations.<name>` — the NixOS configuration of the guest, composed
   from `nixos-lima`'s system module plus the VM's `nixos.modules`.
 
-Start a VM with:
+Then:
 ```terminal
 > $ nix run .#my-awesome-vm -- start
+> $ nix run .#my-awseome-vm -- yaml
 > $ nix run .#my-awseome-vm -- shell dev
 ```
 

@@ -1,6 +1,4 @@
 {
-  description = "Minimal lima-flakee consumer flake";
-
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
     flake-parts = {
@@ -11,7 +9,7 @@
       url = "github:nixos-lima/nixos-lima";
       inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
-    lima-flakee.url = "github:dmd/lima-flakee";
+    lima-flake.url = "github:quasi-coherent/lima-flake";
   };
 
   outputs =
@@ -19,12 +17,10 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "aarch64-darwin"
-        "aarch64-linux"
-        "x86_64-darwin"
         "x86_64-linux"
       ];
 
-      imports = [ inputs.lima-flakee.flakeModules.lima ];
+      imports = [ inputs.lima-flake.flakeModules.lima ];
 
       lima.vms.dev = {
         arch = "aarch64";
@@ -39,11 +35,7 @@
           }
         ];
 
-        bootstrap.greet = {
-          script = ''
-            echo "hello from lima-flakee" > /etc/motd
-          '';
-        };
+        bootstrap.motd.script = ''echo "helloooooooooo" > /etc/motd'';
 
         nixos.modules = [
           (
