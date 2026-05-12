@@ -31,10 +31,9 @@ In your `flake.nix`, include the inputs
   };
 ```
 
-Options are defined per-VM under `lima.vms.<name>` for both Lima YAML and NixOS configuration.
-See [`modules/vm.nix`](modules/vm.nix) for the full definition.
+Options are [defined](modules/vm/default.nix) per-VM under `lima.vms.<name>`.
 
-For each configuration as in
+For each VM that's configured,
 
 ```nix
 lima.vms = {
@@ -55,10 +54,10 @@ lima.vms = {
 
 the flake exposes:
 
-- `packages.<system>.<name>` — a `limactl` wrapper preconfigured with the
-  generated `nixos.yaml` to start/stop/interact with that VM.
 - `nixosConfigurations.<name>` — the NixOS configuration of the guest, composed
   from `nixos-lima`'s system module plus the VM's `nixos.modules`.
+- `packages.<system>.<name>` — a `limactl` wrapper that's preconfigured with the
+  with the VM image definition and generated `nixos.yaml`.
 
 Then:
 ```terminal
