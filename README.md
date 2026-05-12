@@ -4,7 +4,7 @@ A flake for declarative Lima VM definitions.
 
 ## Description
 
-`lima-flake` is a flake-parts module for defining NixOS VMs that run via [Lima][lima] using, [nixos-lima][nixos-lima] as the
+`lima-flake` is a flake-parts module for defining NixOS VMs that run via [Lima][lima] using [nixos-lima][nixos-lima] as the
 base image provider.
 
 The idea is to be able to integrate with a project to supply development/CI VMs, sort of like the role a `docker-compose.yaml`
@@ -31,10 +31,14 @@ In your `flake.nix`, include the inputs
   };
 ```
 
-For each VM declared under `lima.vms.<name>` as in
+Options are defined per-VM under `lima.vms.<name>` for both Lima YAML and NixOS configuration.
+See [`modules/vm.nix`](modules/vm.nix) for the full definition.
+
+For each configuration as in
 
 ```nix
 lima.vms = {
+  ...
   my-awesome-vm = {
     arch = "aarch64";
     cpus = 4;
@@ -59,9 +63,9 @@ lima.vms = {
 the flake exposes:
 
 - `packages.<system>.<name>` — a `limactl` wrapper preconfigured with the
-  generated `nixos.yaml` to run that VM.
+  generated `nixos.yaml` to start/stop/interact with that VM.
 - `packages.<system>.<name>-yaml` — the generated `nixos.yaml` itself, in case
-  that is useful.
+  that's useful for anyone.
 - `nixosConfigurations.<name>` — the NixOS configuration of the guest, composed
   from `nixos-lima`'s system module plus the VM's `nixos.modules`.
 
@@ -76,12 +80,6 @@ A minimal example exists as a flake template:
 ```terminal
 > $ nix flake init -t github:quasi-coherent/lima-flake
 ```
-
-## Options
-
-As mentioned, options are defined per-VM under `lima.vms.<name>` for both Lima
-YAML and NixOS configuration.  See [`modules/vm.nix`](modules/vm.nix) for the
-full definition.
 
 [lima]: https://lima-vm.io/
 [nixos-lima]: https://github.com/nixos-lima/nixos-lima

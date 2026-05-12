@@ -1,10 +1,7 @@
 { lib, pkgs }:
 let
   pruneEmpty = lib.filterAttrs (
-    _: v:
-    v != null
-    && !(builtins.isList v && v == [ ])
-    && !(builtins.isAttrs v && v == { })
+    _: v: v != null && !(builtins.isList v && v == [ ]) && !(builtins.isAttrs v && v == { })
   );
 
   mountToYaml =

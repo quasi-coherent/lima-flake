@@ -8,11 +8,7 @@ let
   vmSubmodule = lib.types.submodule (import ./vm.nix);
 
   resolveImage =
-    vm:
-    if vm.image != null then
-      vm.image
-    else
-      (inputs.nixos-lima.packages.${vm.system}.img or null);
+    vm: if vm.image != null then vm.image else (inputs.nixos-lima.packages.${vm.system}.img or null);
 
   resolveVm = vm: vm // { image = resolveImage vm; };
 
@@ -42,7 +38,10 @@ in
           let
             vm' = resolveVm vm;
             yaml = yamlGen.mkLimaYaml { vm = vm'; };
-            wrapper = wrapperGen.mkLimactlWrapper { vm = vm'; inherit yaml; };
+            wrapper = wrapperGen.mkLimactlWrapper {
+              vm = vm';
+              inherit yaml;
+            };
           in
           {
             "${n}" = wrapper;

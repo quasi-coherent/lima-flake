@@ -60,6 +60,7 @@ in
         (inputs.nixos-lima + "/lima.nix")
         (mkBaseModule vm)
         (mkBootstrapModule vm)
-      ] ++ vm.nixos.modules;
+      ]
+      ++ vm.nixos.modules;
     };
 }
