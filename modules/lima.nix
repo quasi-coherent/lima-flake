@@ -9,7 +9,7 @@ let
 in
 {
   options.lima.vms = lib.mkOption {
-    type = lib.types.attrsOf lib.types.submodule (import ./vm);
+    type = lib.types.attrsOf (lib.types.submodule (import ./vm));
     default = { };
     description = "Declarative Lima VM definitions.";
   };
