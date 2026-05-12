@@ -20,31 +20,6 @@
         "x86_64-linux"
       ];
 
-      imports = [ inputs.lima-flake.flakeModules.lima ];
-
-      lima.vms.dev = {
-        arch = "aarch64";
-        cpus = 2;
-        memory = "2GiB";
-        disk = "10GiB";
-
-        mounts = [
-          {
-            location = "~";
-            writable = false;
-          }
-        ];
-
-        bootstrap.motd.script = ''echo "helloooooooooo" > /etc/motd'';
-
-        nixos.modules = [
-          (
-            { pkgs, ... }:
-            {
-              environment.systemPackages = [ pkgs.htop ];
-            }
-          )
-        ];
-      };
+      imports = [ ./modules ];
     };
 }

@@ -1,7 +1,6 @@
 {
   lib,
   inputs,
-  modulesPath,
   ...
 }:
 let
@@ -15,6 +14,7 @@ let
 
   mkNixosBaseModule =
     vm:
+    { modulesPath, ... }:
     let
       successDir = "/var/lib/lima-flake-bootstrap";
       script = lib.concatImapStringsSep "\n" (
@@ -34,6 +34,16 @@ let
       ) vm.bootstrap;
     in
     {
+      imports = [
+        # Common nixos configuration for virtual machines running under QEMU
+        # using virtio.
+        #
+        # Could be needed; could also not.  Doesn't do anything if not using
+        # these things.
+        (modulesPath + "/profiles/qemu-guest.nix")
+        inputs.nixos-lima.nixosModules.lima
+      ];
+
       environment.systemPackages = vm.nixos.extraPackages;
       users.users = vm.nixos.users;
 
@@ -54,12 +64,7 @@ let
     { vm }:
     inputs.nixpkgs.lib.nixosSystem {
       inherit (vm) system;
-      modules = [
-        (modulesPath + "/profiles/qemu-guest.nix")
-        inputs.nixos-lima.nixosModules.lima
-        (mkNixosBaseModule vm)
-      ]
-      ++ vm.nixos.modules;
+      modules = [ (mkNixosBaseModule vm) ] ++ vm.nixos.modules;
     };
 in
 {

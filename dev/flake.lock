@@ -41,7 +41,7 @@
     "lima-flake": {
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-HqyLqVHO9gqjzVGU5sN/H6v5DqeiDzvTxnNpeR+4krY=",
+        "narHash": "sha256-d7AHbZimTcuaPKc0Q6FVaBX/LJDl8EnI1T0WPygwkfA=",
         "path": "..",
         "type": "path"
       },

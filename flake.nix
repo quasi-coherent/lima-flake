@@ -1,4 +1,4 @@
 {
-  description = "Declarative Lima VM definitions.";
+  description = "Declarative Lima VM definitions";
   outputs = _: import ./.;
 }
